@@ -6,7 +6,7 @@ The motivation for this blog is exactly that. Extra users were needed temporaril
 
 At the time I offered him, in my humble opinion, what would be two of the most quick (and almost dirty) solutions from the top of my head, I said "ok, create a good old user that will authenticate with a good old kubernetes client certificate and/or setup a temporary LDAP server and use the LDAP IDP". 
 
-What seemed to me at the time a fast and easy solution was not in fact so automatic to pull off the hat, so I decided to gather together all the scripting, code, actions, steps taken to make it not only possible, but also simple in this blog + code post.
+What seemed to me at the time a fast and easy solution was not in fact so automatic to pull off the hat, so I decided to put together all the scripting, code, actions, steps taken to make it not only possible, but also simple in this blog + code post.
 
 ## Authenticate with a user certificate
 [This solution is part of Red Hat's ServiceNow knowledge base](https://access.redhat.com/solutions/5360261) and can also be found in [Kubernetes official documentation](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user). With this, all you need to do is follow those instructions or clone the blog repo and run the [create-cert-user](cert/create-cert-user.sh) script. You'll need to be logged as administrator into the cluster you are currently targeting.
