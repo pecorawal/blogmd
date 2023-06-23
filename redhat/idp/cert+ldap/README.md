@@ -80,7 +80,7 @@ Let's use a image container with ldapsearch and test it from inside the cluster:
 oc debug --image=emeraldsquad/ldapsearch
 ldapsearch -v -LLL -H ldap://glauth.glauth.svc.cluster.local -D cn=redhat,ou=csa,dc=latam,dc=redhat -w redhat -x -b "dc=latam,dc=redhat" cn=hi
 ```
-The above search should return information about user macastro. If you want to test the secure port 636, export `LDAPTLS_REQCERT=never` and redo the search with `ldaps://`.
+The above search should return information about user named *'hi'*. If you want to test the secure port 636, export `LDAPTLS_REQCERT=never` and redo the search with `ldaps://`.
 
 ### Configure an LDAP IDP
 #### Configure using OCM WEB UI
