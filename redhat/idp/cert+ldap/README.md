@@ -95,7 +95,7 @@ Now, it's all about adding a new LDAP IDP using the [OCM web UI ](https://consol
 ![Add LDAP IDP certificate with OCM GUI](img/ocm-ldap-idp-certificate.png)
 
 #### Configure using the terminal and oc CLI
-The other way is following the [Openshift documentation for adding a new LDAP IDP](https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html) while using the CLI or using the script [provided in the repo](ldap/add-ldap-idp.sh) (and below) for which, again [yq](https://github.com/mikefarah/yq/releases) is needed
+The other way you can configure is following the [Openshift documentation for adding a new LDAP IDP](https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html) while using the CLI or using the script [provided in the repo](ldap/add-ldap-idp.sh) (and below) for which, again [yq](https://github.com/mikefarah/yq/releases) is needed
 ```bash
 type="private"
 ldap_host="glauth.glauth.svc.cluster.local"
