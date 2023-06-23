@@ -55,7 +55,7 @@ oc config use-context "$current_ctx"
 ## Authenticate with a LDAP deployed in the cluster
 With LDAP as the second quick and almost dirty solution to rapidly create users for the cluster I needed a simple, no-thrills LDAP server to run and I found [Glauth](https://glauth.github.io) which is tested, neat and has a different number of backend choices for the user database including simple text config in TOML, which we're using below.
 
-In the repo you'll find a [deployment manifest](ldap/deployment.yaml) with everything, but first you need to generate the key and certificate for the secure port of the LDAP server and update the *'ConfigMap'* in the deployment file with both. If you generate the certificate and key with different names than the example below bare in mind [the IDP configuration](#configure-an-ldap-idp) step will need to be modified accordingly.
+In the repo you'll find a [deployment manifest](ldap/deployment.yaml) with everything, but first you need to generate the key and certificate for the secure port of the LDAP server and update the *'ConfigMap'* in the deployment file with both. If you generate the certificate and key with different names than the example below bare in mind [the IDP configuration step](#configure-an-ldap-idp) will need to be modified accordingly.
 ```
 openssl genrsa -out glauth.key 2048
 openssl req -new -x509 -sha256 -key glauth.key -out glauth.crt -subj "/CN=glauth" -days 3650 -addext "subjectAltName=DNS:glauth.glauth.svc.cluster.local, DNS:glauth.ddns.net, DNS:glauth.duckdns.org, DNS:glauth.mscastro.net"
