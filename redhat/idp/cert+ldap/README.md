@@ -9,17 +9,23 @@ At the time I offered him, in my humble opinion, what would be two of the most q
 What seemed to me at the time a fast and easy solution was not in fact so automatic to pull off the hat, so I decided to put together all the scripting, code, actions, steps taken to make it not only possible, but also simple in this blog + code post.
 
 ## Authenticate with a user certificate
-[This solution is part of Red Hat's solution knowledge base](https://access.redhat.com/solutions/5360261) and can also be found in [Kubernetes official documentation](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user). With this, all you need to do is follow those instructions or clone the blog repo and run the [create-cert-user](cert/create-cert-user.sh) script. You'll need to be logged as administrator into the cluster you are currently targeting.
+[This solution is part of Red Hat's solution knowledge base](https://access.redhat.com/solutions/5360261) and can also be found in [Kubernetes official documentation](https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user). With this, all you need to do is follow those instructions or clone the blog repo and run the [create-cert-user](cert/create-cert-user.sh) script ([yq](https://github.com/mikefarah/yq/releases) is needed to run it). You'll need to be logged as administrator into the cluster you are currently targeting.
 
 :bulb: The knowledge base procedure considers your kube config first cluster entry is the cluster you want when creating the new context. If you work with many clusters at once this may not be true for you, please check you kube config with 
 ```
 oc config get-clusters
 ```
-
-In case you don't want to clone the repo here's the script, it's quiet simple:
+```bash\
+# from repo base directory
+cd redhat/idp/cert+ldap/cert
+./create-cert-user.sh newuser
+```
+In case you don't want to clone the repo here's the script:
 ```bash
-usr=$1
-cluster=`oc config get-contexts | grep '^*' | awk '{print $3}'`
+cfg="$HOME/.kube/config"
+export usr=$1
+export cluster=`oc config get-contexts | grep '^*' | awk '{print $3}'`
+export ctx="$usr@$cluster"
 current_ctx=`oc config current-context`
 
 openssl req -new -newkey rsa:2048 -nodes -keyout $usr.key -out $usr.csr -subj "/CN=$usr"
@@ -43,11 +49,31 @@ oc adm certificate approve $usr
 sleep 3
 oc get csr $usr -o jsonpath='{.status.certificate}' | base64 -d > $usr.crt
 oc config set-credentials $usr --client-certificate=$usr.crt --client-key=$usr.key --embed-certs=true
-oc config set-context "$usr@$cluster" --namespace=default --cluster=$cluster --user=$usr
-oc config use-context "$usr@$cluster" 
+oc config set-context "$ctx" --namespace=default --cluster=$cluster --user=$usr
+oc config use-context "$ctx" 
 oc whoami
 oc config use-context "$current_ctx" 
+
+
+# extract the context recently created to share with created user owner
+cat <<EOF | yq > $usr.cfg
+apiVersion: v1
+kind: Config
+preferences: {}
+current-context: $ctx
+clusters: 
+- 
+`yq '.clusters[] | select(.name == strenv(cluster))' $cfg | sed -e 's/^/  /g'`
+users:
+- 
+`yq '.users [] | select(.name == strenv(usr))' $cfg | sed -e 's/^/  /g'`
+contexts:
+-
+`yq '.contexts [] | select(.name == strenv(ctx))' $cfg | sed -e 's/^/  /g'`
+EOF
 ```
+:point_up: The file named *'newuser.cfg'* from the above script should be a valid kube config file that can be shared with the newly created user.
+
 :point_right: Remember to bind a role to the new user.
 
  > :heavy_exclamation_mark: Attention to the fact that the users' private keys will be lying around and embedded in the kube config :heavy_exclamation_mark:
