@@ -147,8 +147,8 @@ rm $patch_file
 ### Exposing your internal LDAP 
 You can expose your recently added LDAP server by running
 ```
-> oc project glauth
-> oc expose deployment glauth --name='glauth-public-exposed'  --target-port='3636' --port='636' --type='LoadBalancer'
+oc project glauth
+oc expose deployment glauth --name='glauth-public-exposed'  --target-port='3636' --port='636' --type='LoadBalancer'
 ```
 That will add a load balancer to the cluster. If you need it to be deployed with a private IP add the [custom annotation for your cloud provider](https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer)
 ```yaml
