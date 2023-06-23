@@ -1,0 +1,116 @@
+apiVersion: project.openshift.io/v1
+description: "glauth"
+displayName: glauth
+kind: ProjectRequest
+metadata:
+  name: glauth
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  creationTimestamp: 2016-02-18T19:14:38Z
+  name: glauth
+  namespace: glauth
+data:
+  config.cfg: |-
+    debug = true
+    [ldap]
+      enabled = true
+      listen = "0.0.0.0:3389"
+    [ldaps]
+      enabled = true
+      listen = "0.0.0.0:3636"
+      cert = "/app/config/glauth.crt"
+      key = "/app/config/glauth.key"
+    [backend]
+      datastore = "config"
+      baseDN = "dc=latam,dc=redhat"
+      nameformat = "cn"
+      groupformat = "ou"
+    [behaviors]
+      IgnoreCapabilities = true
+      LimitFailedBinds = false
+      NumberOfFailedBinds = 3
+      PeriodOfFailedBinds = 10
+      BlockFailedBindsFor = 60
+      PruneSourceTableEvery = 600
+      PruneSourcesOlderThan = 600
+    [[users]]
+      name = "redhat"
+      givenname="RedHat"
+      sn="RedHat"
+      mail = "redhat@redhat.com"
+      uidnumber = 5003
+      primarygroup = 5500
+      passsha256 = "7d3b5c83009fadf734c06eeecd7fbe256c69f71c8ba0429e4d7ad5f54b2e4097" # redhat 
+        [[users.capabilities]]
+        action = "search"
+        object = "*"
+    [[users]]
+      name = "hi"
+      givenname="Hi"
+      sn="HowAreYou"
+      mail = "hi@redhat.com"
+      uidnumber = 5003
+      primarygroup = 5500
+      passsha256 = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824" # hello
+        [[users.capabilities]]
+        action = "search"
+        object = "*"        
+    [[groups]]
+      name = "superheros"
+      gidnumber = 5501
+    [[groups]]
+      name = "csa"
+      gidnumber = 5500
+      includegroups = [ 5501 ]    
+  glauth.key: {}
+  glauth.crt: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glauth
+  namespace: glauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glauth
+  template:
+    metadata:
+      labels:
+        app: glauth
+    spec:
+      containers:
+        - name: glauth
+          image: docker.io/glauth/glauth:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3389
+            - containerPort: 3636
+          volumeMounts:
+            - name: glauth-config-volume
+              mountPath: /app/config
+      volumes:
+        - name: glauth-config-volume
+          configMap:
+            name: glauth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: glauth
+  namespace: glauth
+spec:
+  ports:
+    - name: ldap
+      port: 389
+      targetPort: 3389
+      protocol: TCP
+    - name: sldap
+      port: 636
+      targetPort: 3636
+      protocol: TCP
+  selector:
+    app: glauth
