@@ -90,6 +90,11 @@ openssl req -new -x509 -sha256 -key glauth.key -out glauth.crt -subj "/CN=glauth
 If you are planning on [exposing the service to the outside of the cluster](#exposing-your-internal-ldap) you need to add the DNS names you intend using to *'subjectAltName'* when generating the certificate. Also, if for any extraordinary reason you are not using the default domain name of a kubernetes cluster, you also need to adjust *'glauth.glauth.svc.cluster.local'* to your needs.
 
 If you have [yq](https://github.com/mikefarah/yq/releases) installed you can run the [create-cert-and-deploy](ldap/create-cert-and-deploy.sh) script from the repo to accomplish all of the above in one go, see it below
+```bash\
+# from repo base directory
+cd redhat/idp/cert+ldap/cert/ldap
+./create-cert-and-deploy.sh
+```
 ```bash
 dns_names="glauth.glauth.svc.cluster.local glauth.ddns.net glauth.duckdns.org glauth.mscastro.net"
 subj_alt_name="subjectAltName=DNS:`echo $dns_names | sed -e 's/ /,DNS:/g'`"
@@ -121,7 +126,12 @@ Now, it's all about adding a new LDAP IDP using the [OCM web UI ](https://consol
 ![Add LDAP IDP certificate with OCM GUI](img/ocm-ldap-idp-certificate.png)
 
 #### Configure using the terminal and oc CLI
-The other way you can configure is following the [Openshift documentation for adding a new LDAP IDP](https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html) while using the CLI or using the script [provided in the repo](ldap/add-ldap-idp.sh) (and below) for which, again, [yq](https://github.com/mikefarah/yq/releases) is needed
+The other way you can configure is following the [Openshift documentation for adding a new LDAP IDP](https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html) while using the CLI or using the script [provided in the repo](ldap/add-ldap-idp.sh) and below
+```bash
+# from repo base directory
+cd redhat/idp/cert+ldap/cert/ldap
+./add-ldap-idp.sh
+```
 ```bash
 type="private"
 ldap_host="glauth.glauth.svc.cluster.local"
@@ -170,6 +180,7 @@ echo -n "adding $idp_name... "
 oc get oauth cluster -o yaml | yq '.spec.identityProviders += load(strenv(patch_file))' | oc apply -f -
 rm $patch_file
 ```
+:point_up: Above script adds a *'type'* suffix to the ldap idp config in Openshift oauth. If you plan to [expose it](#exposing-your-internal-ldap) and want to test the exposed version, add a new one pointing to the outside version, change the suffix and the *'ldap_host'*.
 ### Adding new users
 If you looked at the [configmap](ldap/deployment.yaml) you easily spotted how you´d add more users, just go about repeating the block below and change the fields. Mandatorily *'name'*. The password is the sha256 of the clear text.
 ![glauth-config.toml](img/glauth-config.toml.png)
