@@ -170,6 +170,10 @@ echo -n "adding $idp_name... "
 oc get oauth cluster -o yaml | yq '.spec.identityProviders += load(strenv(patch_file))' | oc apply -f -
 rm $patch_file
 ```
+### Adding new users
+If you looked at the [configmap](ldap/deployment.yaml) you easily spotted how you´d add more users, just go about repeating the block below and change the fields. Mandatorily *'name'*. The password is the sha256 of the clear text.
+![glauth-config.toml](img/glauth-config.toml.png)
+
 ### Exposing your internal LDAP 
 You can expose your recently added LDAP server by running
 ```
