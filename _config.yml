@@ -1,5 +1,6 @@
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
   - jekyll-remote-theme
+  - jemoji
 title: Tech Blog Series
 description: A compiled series of real world scenario stories from the business as usual days of a cloud success architect in latin america
