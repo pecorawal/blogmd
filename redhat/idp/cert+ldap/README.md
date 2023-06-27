@@ -183,6 +183,7 @@ rm $patch_file
 :point_up: Above script adds a *'type'* suffix to the ldap idp config in Openshift oauth. If you plan to [expose it](#exposing-your-internal-ldap) and want to test the exposed version, add a new one pointing to the outside version, change the suffix and the *'ldap_host'*.
 ### Adding new users
 If you looked at the [configmap](ldap/deployment.yaml) you easily spotted how you´d add more users. Just go about repeating the block below and change the fields, mandatorily *'name'*. The password is the sha256 of the clear text.
+
 ![glauth-config.toml](img/glauth-config.toml.png)
 
 ### Exposing your internal LDAP 
