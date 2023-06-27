@@ -92,7 +92,7 @@ If you are planning on [exposing the service to the outside of the cluster](#exp
 If you have [yq](https://github.com/mikefarah/yq/releases) installed you can run the [create-cert-and-deploy](ldap/create-cert-and-deploy.sh) script from the repo to accomplish all of the above in one go, see it below
 ```bash\
 # from repo base directory
-cd redhat/idp/cert+ldap/cert/ldap
+cd redhat/idp/cert+ldap/ldap
 ./create-cert-and-deploy.sh
 ```
 ```bash
