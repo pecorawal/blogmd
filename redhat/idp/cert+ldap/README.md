@@ -117,13 +117,13 @@ The above search should return information about user named *'hi'*. If you want 
 #### Configure using OCM WEB UI
 Now, it's all about adding a new LDAP IDP using the [OCM web UI ](https://console.redhat.com/openshift) like below 
 
-![Add LDAP IDP with OCM GUI](img/ocm-ldap-idp-setup.png)
+<span class="big">![Add LDAP IDP with OCM GUI](img/ocm-ldap-idp-setup.png)</span>
 
 > LDAP URL: ldaps://glauth.glauth.svc.cluster.local/dc=latam,dc=redhat?cn
 
 :point_right: and make sure to add glauth.crt
 
-![Add LDAP IDP certificate with OCM GUI](img/ocm-ldap-idp-certificate.png)
+<span class="big">![Add LDAP IDP certificate with OCM GUI](img/ocm-ldap-idp-certificate.png)</span>
 
 #### Configure using the terminal and oc CLI
 The other way you can configure is following the [Openshift documentation for adding a new LDAP IDP](https://docs.openshift.com/container-platform/4.13/authentication/identity_providers/configuring-ldap-identity-provider.html) while using the CLI or using the [script provided in the repo](ldap/add-ldap-idp.sh) and below
