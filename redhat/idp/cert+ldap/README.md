@@ -184,7 +184,7 @@ rm $patch_file
 ### Adding new users
 If you looked at the [configmap](ldap/deployment.yaml) you easily spotted how you´d add more users. Just go about repeating the block below and change the fields, mandatorily *'name'*. The password is the sha256 of the clear text.
 
-![glauth-config.toml](img/glauth-config.toml.png)
+<span class="big">![glauth-config.toml](img/glauth-config.toml.png)</span>
 
 ### Exposing your internal LDAP 
 You can expose your recently added LDAP server by running
