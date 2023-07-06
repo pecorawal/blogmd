@@ -21,4 +21,9 @@ defaults:
     scope:
       path: ""
     values:
-      layout: default    
+      layout: default   
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
