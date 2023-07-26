@@ -1,0 +1,51 @@
+# apiVersion: v1
+# kind: ServiceAccount
+# metadata:
+#   name: blogger
+#   namespace: blog
+# ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: blog
+  labels:
+    name: blog
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog
+  namespace: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      volumes:
+        - name: workdir
+          emptyDir: {}
+      containers:
+        - name: blog
+          image: quay.io/mauriciosantiagodecastro/blogrunner
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          volumeMounts:
+            - name: workdir
+              mountPath: /workdir
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blog
+  namespace: blog
+spec:
+  ports:
+    - port: 4000
+  selector:
+    app: blog
