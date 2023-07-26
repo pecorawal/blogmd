@@ -24,7 +24,7 @@ spec:
         - name: workdir
           emptyDir: {}
       containers:
-        - name: blog
+        - name: blogrunner
           image: quay.io/mauriciosantiagodecastro/blogrunner
           imagePullPolicy: Always
           ports:
@@ -32,6 +32,32 @@ spec:
           volumeMounts:
             - name: workdir
               mountPath: /workdir
+          env:
+            - name: GIT_REPO
+              value: https://github.com/mauricioscastro/blog     
+        - name: md2pdf
+          image: bladerunner2020/markdown-to-file
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: workdir
+              mountPath: &pdf_col_base_path /usr/local/documents/mscastro
+          env:
+            - name: PDF_COLLECTION_BASE_PATH
+              value: *pdf_col_base_path           
+          command: 
+            - /bin/sh
+          args: 
+            - -c
+            - |-
+              while true; do 
+                find $PDF_COLLECTION_BASE_PATH
+                for md in `find $PDF_COLLECTION_BASE_PATH -name "*.md" -newermt "10 seconds ago" | grep -v 404`; do 
+                  m2f $md pdf \
+                    footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
+                    headerTemplate="<span/>" margin.top="0.8cm" 
+                done
+                sleep 10
+              done             
 ---
 apiVersion: v1
 kind: Service
