@@ -40,17 +40,16 @@ spec:
           imagePullPolicy: Always
           volumeMounts:
             - name: workdir
-              mountPath: &pdf_col_base_path /usr/local/documents/mscastro
+              mountPath: &pdf_collection_base_path /usr/local/documents/mscastro
           env:
             - name: PDF_COLLECTION_BASE_PATH
-              value: *pdf_col_base_path           
+              value: *pdf_collection_base_path           
           command: 
             - /bin/sh
           args: 
             - -c
             - |-
               while true; do 
-                find $PDF_COLLECTION_BASE_PATH
                 for md in `find $PDF_COLLECTION_BASE_PATH -name "*.md" -newermt "10 seconds ago" | grep -v 404`; do 
                   m2f $md pdf \
                     footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
