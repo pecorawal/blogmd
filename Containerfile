@@ -5,7 +5,7 @@ ENV WORKDIR="/workdir"
 
 ENTRYPOINT \
   repo_path=`echo $GIT_REPO | sed -e 's;.*/;;g'`; \
-  function keep_pulling(){ cd $WORKDIR/$repo_path; while true; do sleep 10; git pull -f; done; }; \
+  function keep_pulling(){ cd $WORKDIR/$repo_path; while true; do sleep 10; git reset --hard; git pull -f; done; }; \
   cd $WORKDIR; \
   git clone $GIT_REPO; \
   cd $repo_path; \
