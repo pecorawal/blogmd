@@ -1,4 +1,4 @@
-FROM jekyll/builder
+FROM docker.io/jekyll/builder
 
 ENV GIT_REPO="https://github.com/mauricioscastro/blog"
 ENV WORKDIR="/workdir"
