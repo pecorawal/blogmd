@@ -10,6 +10,7 @@ kind: Deployment
 metadata:
   name: blog
   namespace: blog
+  app.kubernetes.io/version: "0.1.0"
 spec:
   replicas: 1
   selector:
