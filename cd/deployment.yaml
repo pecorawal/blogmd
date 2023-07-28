@@ -11,7 +11,7 @@ metadata:
   name: blog
   namespace: blog
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: blog
