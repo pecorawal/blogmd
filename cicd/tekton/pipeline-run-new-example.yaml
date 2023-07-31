@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: new-pipeline-run-
+spec:
+  serviceAccountName: 
+  pipelineRef:
+    name: new-pipeline
+  workspaces:
+    - name: git-source 
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce 
+          resources:
+            requests:
+              storage: 1Gi
+    - name: registry-credentials
+      secret:
+        secretName: quayio-robot-credentials

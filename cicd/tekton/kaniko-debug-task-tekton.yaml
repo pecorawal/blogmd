@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kanikod
+  namespace: blog
+spec:
+  workspaces:
+    - name: dockerconfig
+      mountPath: /kaniko/.docker
+    - name: source
+  params:
+    - name: image
+      default: quay.io/mauriciosantiagodecastro/blogrunner
+    - name: commit 
+  steps:  
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:debug
+      securityContext:
+        runAsUser: 0
+      script: |- 
+        short=`echo $(params.commit) | cut -c 1-7`
+        build_date=`date +'%Y%m%d%H%M%S'`
+        /kaniko/executor --skip-tls-verify \
+        -f Containerfile \
+        -d $(params.image):$short.$build_date \
+        -c $(workspaces.source.path)
