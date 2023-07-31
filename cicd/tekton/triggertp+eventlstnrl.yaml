@@ -1,0 +1,73 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: new-trigger-template
+  namespace: blog  
+spec:
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: new-pipeline-run-
+    spec:
+      pipelineRef:
+        name: new-pipeline
+      serviceAccountName: pipeline
+      workspaces:
+        - name: git-source
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+                - ReadWriteOnce 
+              resources:
+                requests:
+                  storage: 1Gi
+---
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: new-trigger-binding
+  namespace: blog  
+spec:
+  params:
+    - name: gitrevision
+      value: $(body.checkout_sha)
+    - name: gitrepositoryurl
+      value: $(body.repository.git_http_url)
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-secret
+  namespace: blog  
+type: Opaque
+stringData:
+  secretToken: "1234567"
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: gitlab-listener-new
+  namespace: blog  
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: gitlab-push-events-trigger
+      interceptors:
+        - name: verify-gitlab-payload
+          ref:
+            name: gitlab
+            kind: ClusterInterceptor
+          params:
+            - name: secretRef
+              value:
+                secretName: git-secret
+                secretKey: secretToken
+            - name: eventTypes
+              value:
+                - "Push Hook"
+      bindings:
+        - ref: new-trigger-binding
+      template:
+        ref: new-trigger-template
+
