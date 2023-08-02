@@ -7,6 +7,7 @@ spec:
   workspaces:
     - name: git-source
     - name: registry-credentials
+    - name: git-credentials
   params:
     - name: pdf-dest-dir
       type: string
@@ -116,6 +117,8 @@ spec:
           - name: image
             default: quay.io/mauriciosantiagodecastro/blogrunner
           - name: commit 
+        results:
+          - name: image-tag
         steps:
           - name: build-and-push
             image: quay.io/podman/stable
@@ -129,9 +132,43 @@ spec:
               podman build . -t $(params.image):$short.$build_date
               podman push $(params.image):$short.$build_date 
               podman push $(params.image):$short.$build_date $(params.image):latest
+              echo "$short.$build_date" > $(results.image-tag.path)
+    #
+    # update deployment so argo can sense and flag out-of-sync
+    #     
+    - name: cd-update
+      runAfter:
+        - podman
+      workspaces:
+        - workspace: git-source 
+          name: output
+        - workspace: git-credentials 
+          name: gitssh   
+      params:
+        - name: version
+          value: $(tasks.podman.results.image-tag)
+      taskSpec:
+        params:
+          - name: version 
+        steps:
+          - name: update-deployment
+            image: alpine
+            script: |-   
+              manifest=$(workspaces.output.path)/cicd/argo/deployment.yaml
+              export version=$(params.version)
+              apk --no-cache add yq git > /dev/null 2>&1
+              export GIT_SSH_COMMAND="ssh -i $(workspaces.gitssh.path)/gitkey -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+              git config --global --add safe.directory $(workspaces.output.path)
+              cd $(workspaces.output.path)
+              git reset --hard
+              yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata."app.kubernetes.io/version" = strenv(version))' $manifest
+              cat $manifest
+              git add $manifest
+              # git commit -m "updating deployments with version $version"
+              git status
     - name: clean
       runAfter:
-        - podman 
+        - cd-update 
       taskSpec:
         steps:
           - name: clean
