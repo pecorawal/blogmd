@@ -159,12 +159,13 @@ spec:
               apk --no-cache add yq git > /dev/null 2>&1
               export GIT_SSH_COMMAND="ssh -i $(workspaces.gitssh.path)/gitkey -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
               git config --global --add safe.directory $(workspaces.output.path)
+              git config --global user.email "tekton@openshift"
+              git config --global user.name "tekton"
               cd $(workspaces.output.path)
               git reset --hard
               yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata."app.kubernetes.io/version" = strenv(version))' $manifest
-              cat $manifest
               git add $manifest
-              # git commit -m "updating deployments with version $version"
+              git commit -m "updating deployments with version $version"
               git status
     - name: clean
       runAfter:
