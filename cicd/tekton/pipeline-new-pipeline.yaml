@@ -162,11 +162,10 @@ spec:
               git config --global user.email "tekton@openshift"
               git config --global user.name "tekton"
               cd $(workspaces.output.path)
-              git reset --hard
               yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata."app.kubernetes.io/version" = strenv(version))' $manifest
               git add $manifest
               git commit -m "updating deployments with version $version"
-              git status
+              git push origin HEAD:main
     - name: clean
       runAfter:
         - cd-update 
