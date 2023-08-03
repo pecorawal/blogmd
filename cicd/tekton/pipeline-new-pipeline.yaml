@@ -42,7 +42,7 @@ spec:
       taskSpec:
         steps:
           - name: build
-            image: jekyll/builder
+            image: docker.io/jekyll/builder
             resources: {}
             script: |-
               cd $(workspaces.output.path)
@@ -65,7 +65,7 @@ spec:
             default: $(params.pdf-dest-dir)
         steps:
           - name: md-to-pdf
-            image: bladerunner2020/markdown-to-file
+            image: quay.io/mauriciosantiagodecastro/md2pdf
             script: |-
               mkdir -p $(params.pdf-dest-dir)
               cp -r $(workspaces.output.path)/* $(params.pdf-dest-dir)
@@ -132,7 +132,7 @@ spec:
           - name: cd-git-repo
         steps:
           - name: update-deployment
-            image: alpine
+            image: docker.io/alpine
             script: |-   
               git_repo=$(params.cd-git-repo)
               manifest=cicd/argo/deployment.yaml
@@ -155,6 +155,6 @@ spec:
       taskSpec:
         steps:
           - name: clean
-            image: alpine
+            image: docker.io/alpine
             script: |-
               echo "nothing to do"             
