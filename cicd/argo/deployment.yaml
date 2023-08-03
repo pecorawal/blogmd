@@ -10,7 +10,7 @@ kind: Deployment
 metadata:
   name: blog
   namespace: blog
-  app.kubernetes.io/version: "10974a8.20230803005738"
+  app.kubernetes.io/version: "098a9eb.20230803014545"
 spec:
   replicas: 1
   selector:
