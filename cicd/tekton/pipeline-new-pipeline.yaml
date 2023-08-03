@@ -147,7 +147,7 @@ spec:
               cd `echo $git_repo | sed -e 's/.git//g' -e 's;.*/;;g'`
               yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata."app.kubernetes.io/version" = strenv(VERSION))' $manifest
               git add $manifest
-              git commit -m "updating deployments with version $version"
+              git commit -m "updating deployments with version $VERSION"
               git push 2> /dev/null
     - name: clean
       runAfter:
