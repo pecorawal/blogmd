@@ -145,7 +145,7 @@ spec:
               git config --global user.name "tekton"
               git clone $git_repo 2> /dev/null
               cd `echo $git_repo | sed -e 's/.git//g' -e 's;.*/;;g'`
-              yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata."app.kubernetes.io/version" = strenv(VERSION))' $manifest
+              yq -i 'with(select(.kind=="Deployment" and .metadata.name=="blog"); .metadata.labels."app.kubernetes.io/version" = strenv(VERSION))' $manifest
               git add $manifest
               git commit -m "updating deployments with version $VERSION"
               git push 2> /dev/null
