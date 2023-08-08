@@ -18,11 +18,10 @@ readme_index:
   with_frontmatter: false
 
 defaults:
-  - 
-    scope:
+  - scope:
       path: ""
     values:
-      layout: default   
+      layout: default
 
 exclude:
   - CNAME
