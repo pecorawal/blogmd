@@ -15,7 +15,7 @@ show_dir_listing: false
 readme_index:
   enabled:          true
   remove_originals: true
-  with_frontmatter: true
+  with_frontmatter: false
 
 defaults:
   - scope:
