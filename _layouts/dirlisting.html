@@ -82,14 +82,13 @@
       <!-- {% include toc.html html=content %} -->
       <h1>{{ page.dir }}:</h1>
       <table>
-        {% directory path: page.dir exclude: private %}
-        {% assign extension = file.name | split: "." | last %}
-        {% if extension != 'md' %}
-          <tr>
-            <td><a href="{{ file.url }}">{{ file.name }}</a></td> <td>{{ file.date |  date: "%c" }}</td>
-          </tr>
-        {% endif %}
-        {% enddirectory %}
+        {% for static in site.static_files %}
+          {% if static.path contains page.dir %}
+            <tr>
+              <td><a href="{{ static.path }}">{{ static.name }}</a></td><td>{{ static.modified_time |  date: "%c" }}</td>
+            </tr>        
+          {% endif %}
+        {% endfor %}        
       </table>
       </section>
       <footer>
