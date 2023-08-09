@@ -1,10 +1,3 @@
-{% assign this_pdf =  ':/' | append: page.path | replace: '.md', '.pdf' %}
-{% for static in site.static_files %}
-  {% capture static_file_list %}:{{static.path}}{{static_file_list}}{% endcapture %}
-{% endfor %}
-{% if static_file_list contains this_pdf %}
-  {% assign contains_pdf = true %}
-{% endif %}
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
@@ -48,6 +41,18 @@
       content: "";
       margin-left: -1.3rem;
     }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+      word-wrap: break-word;
+    }
+    tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
   </style>
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
@@ -74,7 +79,17 @@
       </header>
       <section>
       <!-- {% include toc.html html=content %} -->
-      {{ content }}
+      <h1>{{ page.dir }}:</h1>
+      <table>
+        {% directory path: page.dir exclude: private %}
+        {% assign extension = file.name | split: "." | last %}
+        {% if extension != 'md' %}
+          <tr>
+            <td><a href="{{ file.url }}">{{ file.name }}</a></td> <td>{{ file.date |  date: "%c" }}</td>
+          </tr>
+        {% endif %}
+        {% enddirectory %}
+      </table>
       </section>
       <footer>
         {% if site.github.is_project_page %}

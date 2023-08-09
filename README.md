@@ -5,5 +5,5 @@ A compiled series of real world scenario stories from the business as usual days
 
 ## Tools
 - [Containerfile](./Containerfile) used to run this blog locally with [Podman](https://podman.io)
-- [Pipeline](./cicd/tekton/pipeline-new-pipeline.yaml) example to exercise this blog with [Tekton](https://tekton.dev) 
+- [Set of Manifests](./cicd/tekton) examples to exercise this blog with [Tekton](https://tekton.dev) CI
 - [Plain Manifest](./cicd/argo/deployment.yaml) to exercise it with [ArgoCD](https://argo-cd.readthedocs.io/en/stable/)

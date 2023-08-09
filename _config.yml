@@ -4,8 +4,8 @@ remote_theme: pages-themes/tactile@v0.2.0
 destination: /tmp/tech_blog_series_site
 
 plugins:
-  - jekyll-remote-theme
   - jemoji
+  - jekyll-remote-theme
   - jekyll-relative-links
   - jekyll-readme-index
   - jekyll-redirect-from
@@ -15,7 +15,7 @@ show_dir_listing: false
 readme_index:
   enabled:          true
   remove_originals: true
-  with_frontmatter: false
+  with_frontmatter: true
 
 defaults:
   - scope:

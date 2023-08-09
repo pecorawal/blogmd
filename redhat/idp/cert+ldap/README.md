@@ -16,7 +16,7 @@ What seemed to me at the time a fast and easy solution was not in fact so automa
 ```
 oc config get-clusters
 ```
-```bash\
+```bash
 # from repo base directory
 cd redhat/idp/cert+ldap/cert
 ./create-cert-user.sh newuser
@@ -91,7 +91,7 @@ openssl req -new -x509 -sha256 -key glauth.key -out glauth.crt -subj "/CN=glauth
 If you are planning on [exposing the service to the outside of the cluster](#exposing-your-internal-ldap) you need to add the DNS names you intend using to *'subjectAltName'* when generating the certificate. Also, if for any extraordinary reason you are not using the default domain name of a kubernetes cluster, you also need to adjust *'glauth.glauth.svc.cluster.local'* to your needs.
 
 If you have [yq](https://github.com/mikefarah/yq/releases) installed you can run the [create-cert-and-deploy](ldap/create-cert-and-deploy.sh) script from the repo to accomplish all of the above in one go, see it below
-```bash\
+```bash
 # from repo base directory
 cd redhat/idp/cert+ldap/ldap
 ./create-cert-and-deploy.sh
