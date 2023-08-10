@@ -1,7 +1,6 @@
 title: Tech Blog Series
 description: A compiled series of real world scenario stories from the business as usual days of a IT architect
 remote_theme: pages-themes/tactile@v0.2.0
-destination: /tmp/tech_blog_series_site
 
 plugins:
   - jemoji
