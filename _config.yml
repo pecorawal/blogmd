@@ -10,6 +10,7 @@ plugins:
   - jekyll-readme-index
   - jekyll-redirect-from
   - jekyll-regex-replace
+  - jekyll-highlight-param
 
 show_dir_listing: false
 
