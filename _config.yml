@@ -25,6 +25,7 @@ defaults:
       layout: default
 
 exclude:
+  - vendor/
   - CNAME
   - Gemfile
   - Gemfile.lock
