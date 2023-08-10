@@ -9,7 +9,7 @@ plugins:
   - jekyll-relative-links
   - jekyll-readme-index
   - jekyll-redirect-from
-  - jekyll_include_plugin
+  - jekyll-regex-replace
 
 show_dir_listing: false
 

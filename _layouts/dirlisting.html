@@ -8,6 +8,15 @@
     {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     {% include head-custom.html %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css" integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark-reasonable.min.css" integrity="sha512-RwXJS3k4Z0IK6TGoL3pgQlA9g2THFhKL7z9TYWdAI8u6xK0AUuMWieJuWgTRayywC9A94ifUj1RzjDa1NIlUIg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai.min.css" integrity="sha512-RLF8eOxhuwsRINc7r56dpl9a3VStqrXD+udWahutJrYdyh++2Ghnf+s4jFsOyryKZt/GNjPwbXVPH3MJpKrn2g==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css" integrity="sha512-Jk4AqjWsdSzSWCSuQTfYRIF84Rq/eV0G2+tu07byYwHcbTGfdmLrHjUSwvzp5HvbiqK4ibmNwdcG49Y5RGYPTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" integrity="sha512-rdhY3cbXURo13l/WU9VlaRyaIYeJ/KBakckXIvJNAQde8DgpOmE+eZf7ha4vdqVjTtwQt69bD2wH2LXob/LB7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js" integrity="sha512-uzLMr+y2UfIJhZodXJJXGUgSWhOTdT1FABVEECjTZ8rPNQ5mT8AJUldpJVPnxUYjT052sB8ddJwiB56MtAQA3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/bash.min.js" integrity="sha512-10MAbvV683nchyNnutInZDUUmwsAF8IpMc8V+qUNPv9wb26Bv9inyKzAdMfmbFdSIgxxjQhBsZq6sEP+UgsqWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js" integrity="sha512-hvC/ByqSWukSREyVyHBARP6ikFgmevNdPr1yPz+ik58Y1MPJzfsLwu2NUQYTYZ3zj9EzpYyZmrISJZjUMeaWPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>hljs.highlightAll();</script>
   </head>
   <style>
     em {
@@ -26,9 +35,6 @@
       margin-bottom: 20px;
       font-size: 1.1em;
       border-left: 10px solid #9b9b9b;
-      word-wrap: break-word;
-    }
-    code {
       word-wrap: break-word;
     }
     ul {
@@ -51,8 +57,27 @@
       word-wrap: break-word;
       padding: 3px 5px 3px 5px;
     }
-    tr:nth-child(odd) {
-      background-color: #f2f2f2;
+    tr:nth-child(even) {
+      background-color: #d7dae0;
+    }
+    pre {
+      padding: 0 0 0 0;
+      margin: 0 0 0 0;
+      border: 0 0 0 0;
+    }
+    code {
+      margin-bottom: 0;
+    }    
+    .hljs {
+      white-space: pre;
+      overflow: auto;
+      font-size: 100%;
+      white-space-collapse: preserve;
+      text-wrap: nowrap;      
+      font-size: 110%;
+    }
+    .hljs-punctuation, .hljs-tag {
+      color: #c0c0c0;
     }
   </style>
   <body>
@@ -79,17 +104,49 @@
         {% endif %}
       </header>
       <section>
-      <!-- {% include toc.html html=content %} -->
-      <h1>{{ page.dir }}:</h1>
-      <table>
+      <div style="padding-bottom: 10px;">
+        <h1 style="display: inline-block;">{{ page.dir | regex_replace: '/$', '' }}:</h1>
+        <div style="display: inline-block;">
+          <small>
+            {% if page.pretty_print_files %}
+            <a href="index.html">(close syntax highlight)</a>
+            {% else %}
+            <a href="prettydirlist.html">(open syntax highlight)</a>
+            {% endif %}
+          </small>
+        </div>
+      </div>       
+
+      {% if page.pretty_print_files %}
         {% for static in site.static_files %}
           {% if static.path contains page.dir %}
-            <tr>
-              <td><a href="{{ static.path }}">{{ static.name }}</a></td><td>{{ static.modified_time |  date: "%c" }}</td>
-            </tr>        
+            {% case static.extname %}
+              {% when ".yaml", ".yml" %}
+                {% assign lang = "yaml" %}
+              {% when ".sh" %}
+                {% assign lang = "bash" %}
+              {% when ".js", ".json" %}
+                {% assign lang = "json" %}
+            {% endcase %}
+            <div>
+              <a style="display: inline-block;" href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
+              <pre><code class="language-{{ lang }}">{% include_relative {{ static.name }} %}</code></pre>
+              <div style="height: 35px;"></div>
+            </div>
           {% endif %}
-        {% endfor %}        
-      </table>
+        {% endfor %} 
+      {% else %}
+        <table>
+          {% for static in site.static_files %}
+            {% if static.path contains page.dir %}
+              <tr>
+                <td><a href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%;">{{ static.name }}</div></a></td><td>{{ static.modified_time |  date: "%c" }}</td>
+              </tr>       
+            {% endif %}
+          {% endfor %}        
+        </table>            
+      {% endif %}
+
       </section>
       <footer>
         {% if site.github.is_project_page %}
