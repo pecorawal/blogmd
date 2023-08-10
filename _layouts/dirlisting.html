@@ -36,7 +36,7 @@
     }
     li:before {
       content: "";
-      margin-left: -1.3rem;
+      margin-left: -1.0rem;
     }
     table {
       border-collapse: collapse;
@@ -79,6 +79,7 @@
         {% endif %}
       </header>
       <section>
+        {{ page.id }}
       <div>
         <h1 style="display: inline-block;">{{ page.dir | regex_replace: '/$', '' }}:</h1>
         <div style="display: inline-block;">
