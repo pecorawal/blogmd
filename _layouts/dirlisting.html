@@ -127,7 +127,7 @@
                 {% assign lang = "json" %}
             {% endcase %}
             <div>
-              <a style="display: inline-block;" href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
+              <a href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
               <pre><code class="language-{{ lang }}">{% include_relative {{ static.name }} %}</code></pre>
               <div style="height: 35px;"></div>
             </div>
