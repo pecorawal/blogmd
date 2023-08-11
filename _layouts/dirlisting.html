@@ -104,7 +104,7 @@
                 {% assign lang = "json" %}
             {% endcase %}
             <div>
-              <a href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
+              <a href="{{ static.path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
               {% highlight_param {{ lang }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
               <div style="height: 35px;"></div>
             </div>
