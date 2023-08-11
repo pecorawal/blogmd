@@ -50,7 +50,15 @@ spec:
             - /bin/sh
           args:
             - -c
-            - "while true; do \n  for md in `find $PDF_COLLECTION_BASE_PATH -name \"*.md\" -newermt \"10 seconds ago\" | grep -v 404 | grep -v $PDF_COLLECTION_BASE_PATH/bundle | grep -v $PDF_COLLECTION_BASE_PATH/site`; do \n    m2f $md pdf \\\n      footerTemplate=\"<div style=\\\"font-size: 9px; margin: 0 auto;\\\"> <span class=\"pageNumber\"></span> / <span class=\"totalPages\"></span></div>\" \\\n      headerTemplate=\"<span/>\" margin.top=\"0.8cm\" \n  done\n  sleep 10\ndone             "
+            - |-
+              while true; do 
+                for md in `find $PDF_COLLECTION_BASE_PATH -name "*.md" -newermt "10 seconds ago" | grep -v 404 | grep -v $PDF_COLLECTION_BASE_PATH/bundle | grep -v $PDF_COLLECTION_BASE_PATH/site`; do 
+                  m2f $md pdf \
+                    footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
+                    headerTemplate="<span/>" margin.top="0.8cm" 
+                done
+                sleep 10
+              done             
 ---
 apiVersion: v1
 kind: Service
