@@ -58,7 +58,7 @@
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
       <header style="padding-bottom: 0px; padding-top: 20px;">
-        <h1 style="margin-bottom: 0; border-bottom: 0; padding-bottom: 0;"><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a>
+        <h1 style="word-break: break-all; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;"><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a>
           {% if contains_pdf %}
             <a href="{{page.name | replace: '.md', '.pdf'}}"><img style="padding-left: 10px;" src="/img/pdf.png" alt="pdf"/></a>
           {% endif %}
@@ -79,9 +79,8 @@
         {% endif %}
       </header>
       <section>
-        {{ page.id }}
-      <div>
-        <h1 style="display: inline-block;">{{ page.dir | regex_replace: '/$', '' }}:</h1>
+      <div style="word-break: break-all;">
+        <h1 style="display: inline-block; ">{{ page.dir | regex_replace: '/$', '' }}:</h1>
         <div style="display: inline-block;">
           <small>
             {% if page.pretty_print_files %}
@@ -112,12 +111,12 @@
           {% endif %}
         {% endfor %} 
       {% else %}
-        <table>
+        <table style="word-break: break-all;">
           {% directory path: page.dir exclude: .md$ %}
             <tr>
-              <td><a href="{{ file.url }}"><div style="margin-bottom: 0; font-size: 110%;">{{ file.name }}</div></a></td>
-              <td>{{ file.size }}</td>
-              <td>{{ file.date |  date: "%c" }}</td>
+              <td><a href="{{ file.url }}"><div style="margin-bottom: 0;">{{ file.name }}</div></a></td>
+              <td style="font-size: 90%;">{{ file.size }}</td>
+              <td style="font-size: 90%;">{{ file.date |  date: "%c" }}</td>
             </tr>       
           {% enddirectory %}
         </table>            
