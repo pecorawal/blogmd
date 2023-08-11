@@ -113,13 +113,14 @@
         {% endfor %} 
       {% else %}
         <table>
-          {% for static in site.static_files %}
-            {% if static.path contains page.dir %}
-              <tr>
-                <td><a href="{{ static.path }}"><div style="margin-bottom: 0; font-size: 110%;">{{ static.name }}</div></a></td><td>{{ static.modified_time |  date: "%c" }}</td>
-              </tr>       
-            {% endif %}
-          {% endfor %}        
+          {% assign page_dir = page.dir | regex_replace: '^/', '' %}
+          {% directory path: page_dir exclude: .md$ %}
+            <tr>
+              <td><a href="{{ file.url }}"><div style="margin-bottom: 0; font-size: 110%;">{{ file.name }}</div></a></td>
+              <td>{{ file.size }}</td>
+              <td>{{ file.date |  date: "%c" }}</td>
+            </tr>       
+          {% enddirectory %}
         </table>            
       {% endif %}
 
