@@ -21,6 +21,10 @@
       max-width: 100%;
       height: auto;
     }
+    .text_icon img {
+      margin-right: 0em;      
+      max-height: 0.8em; 
+    } 
     blockquote {
       padding: 0 0 0 5px;
       margin-bottom: 20px;
@@ -57,26 +61,13 @@
   </style>
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
-      <header style="padding-bottom: 0px; padding-top: 20px;">
-        <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;"><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a>
+      <header style="padding-bottom: 15px; padding-top: 20px;">
+        <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;"><a href="{{ "/" | absolute_url }}">{{ page.title | default: site.title }}</a>
           {% if contains_pdf %}
             <a href="{{page.name | replace: '.md', '.pdf'}}"><img style="padding-left: 10px;" src="/img/pdf.png" alt="pdf"/></a>
           {% endif %}
         </h1>
-
-        {% if site.logo %}
-          <img src="{{site.logo | relative_url}}" alt="Logo" />
-        {% endif %}
-
-        <p>{{ site.description | default: site.github.project_tagline }}</p>
-
-        {% if site.show_downloads %}
-        <ul class="downloads">
-          <li><a href="{{ site.github.zip_url }}">Download <strong>ZIP File</strong></a></li>
-          <li><a href="{{ site.github.tar_url }}">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="{{ site.github.repository_url }}">View On <strong>GitHub</strong></a></li>
-        </ul>
-        {% endif %}
+        <div>{{ page.description | default: site.description }}</div>
       </header>
       <section>
       <div style="word-break: break-all;">
@@ -84,9 +75,9 @@
         <div style="display: inline-block;">
           <small>
             {% if page.pretty_print_files %}
-            <a href="index.html">(close syntax highlight)</a>
+            <a href="index.html" style="color: #6d6d6d;">(close syntax highlight)</a>
             {% else %}
-            <a href="prettydirlist.html">(open syntax highlight)</a>
+            <a href="syntaxhl.html" style="color: #6d6d6d;">(open syntax highlight)</a>
             {% endif %}
           </small>
         </div>
@@ -103,7 +94,7 @@
               {% when ".js", ".json" %}
                 {% assign lang = "json" %}
             {% endcase %}
-            <div>
+            <div style="padding-top: 10px;">
               <a href="{{ static.path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
               {% highlight_param {{ lang }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
               <div style="height: 35px;"></div>
@@ -121,15 +112,8 @@
           {% enddirectory %}
         </table>            
       {% endif %}
-
       </section>
       <footer>
-        {% if site.github.is_project_page %}
-        <p style="padding: 0px; margin-bottom: 0px;">This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
-        {% endif %}
-        {% if site.github.is_project_page %}
-        <p style="padding: 0px; margin-bottom: 0px;">View the Project on GitHub <a href="{{ site.github.repository_url }}">{{ site.github.repository_nwo }}</a></p>
-        {% endif %}
       </footer>
     </div>
   </body>

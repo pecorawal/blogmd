@@ -17,6 +17,3 @@ ENTRYPOINT \
   bundle install; \
   keep_pulling & \
   bundle exec jekyll serve -w --incremental --host "0.0.0.0" -d $WORKDIR/site 
-
-  
-

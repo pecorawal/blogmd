@@ -1,10 +1,3 @@
-{% assign this_pdf =  ':/' | append: page.path | replace: '.md', '.pdf' %}
-{% for static in site.static_files %}
-  {% capture static_file_list %}:{{static.path}}{{static_file_list}}{% endcapture %}
-{% endfor %}
-{% if static_file_list contains this_pdf %}
-  {% assign contains_pdf = true %}
-{% endif %}
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
@@ -31,16 +24,13 @@
     .text_icon img {
       margin-right: 0em;      
       max-height: 0.8em; 
-    }
+    } 
     blockquote {
       padding: 0 0 0 5px;
       margin-bottom: 20px;
       font-size: 1.1em;
       border-left: 10px solid #9b9b9b;
       word-wrap: break-word;
-    }
-    code {
-      font-size: 110%;
     }
     ul {
       padding-left: 1em
@@ -52,6 +42,22 @@
       content: "";
       margin-left: -0.5rem;
     }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+      word-wrap: break-word;
+      padding: 3px 5px 3px 5px;
+    }
+    tr:nth-child(even) {
+      background-color: #d7dae0;
+    }
+    code {
+      font-size: 110%;
+    }     
   </style>
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
@@ -64,7 +70,11 @@
         <div>{{ page.description | default: site.description }}</div>
       </header>
       <section>
-      {{ content }}
+        <div style="padding-top: 10px;">
+          {% assign real_path = page.path | regex_replace: '\.md', '' %}
+          <a href="{{ real_path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ real_path }}</div></a>
+          {% highlight_param {{ page.lang }} %}{% include_relative {{ real_path }} %}{% endhighlight_param %}
+        </div>
       </section>
       <footer>
       </footer>
