@@ -51,6 +51,7 @@ module Jekyll
 
       path = Liquid::VariableLookup.new(@attributes['path']).evaluate(context)
       path ||= @attributes.fetch('path', '.')
+      path = path.gsub(/^\/?(.*)$/,'\1')
 
       source_dir = context.registers[:site].source
       listed_dir = File.expand_path(File.join(source_dir, path))

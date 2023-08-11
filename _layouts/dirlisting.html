@@ -113,8 +113,7 @@
         {% endfor %} 
       {% else %}
         <table>
-          {% assign page_dir = page.dir | regex_replace: '^/', '' %}
-          {% directory path: page_dir exclude: .md$ %}
+          {% directory path: page.dir exclude: .md$ %}
             <tr>
               <td><a href="{{ file.url }}"><div style="margin-bottom: 0; font-size: 110%;">{{ file.name }}</div></a></td>
               <td>{{ file.size }}</td>
