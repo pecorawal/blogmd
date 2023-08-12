@@ -1,0 +1,67 @@
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+    {% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    {% include head-custom.html %}
+    <style>
+      header h1 {
+        font-size: 38px;
+      }
+      h1 {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+      }      
+      body {
+        margin: 0px 50px 0px 50px; 
+      }
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+    </style>
+  </head>

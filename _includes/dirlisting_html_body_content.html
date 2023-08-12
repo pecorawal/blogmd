@@ -1,0 +1,45 @@
+<section>
+  <div style="word-break: break-all;">
+    <h1 style="display: inline-block; ">{{ page.dir | regex_replace: '/$', '' }}:</h1>
+    <div style="display: inline-block;">
+      <small>
+        {% if page.pretty_print_files %}
+        <a href="index.html" style="color: #6d6d6d;">(close syntax highlight)</a>
+        {% else %}
+        <a href="syntaxhl.html" style="color: #6d6d6d;">(open syntax highlight)</a>
+        {% endif %}
+      </small>
+    </div>
+  </div>       
+  {% if page.pretty_print_files %}
+    {% for static in site.static_files %}
+      {% if static.path contains page.dir %}
+        {% case static.extname %}
+          {% when ".yaml", ".yml" %}
+            {% assign lang = "yaml" %}
+          {% when ".sh" %}
+            {% assign lang = "bash" %}
+          {% when ".js", ".json" %}
+            {% assign lang = "json" %}
+          {% else %}
+            {% assign lang = "text" %}
+        {% endcase %}
+        <div style="padding-top: 10px;">
+          <a href="{{ static.path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
+          {% highlight_param {{ lang }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
+          <div style="height: 15px;"></div>
+        </div>
+      {% endif %}
+    {% endfor %} 
+  {% else %}
+    <table style="word-break: break-all;">
+      {% directory path: page.dir exclude: .md$ %}
+        <tr>
+          <td><a href="{{ file.url }}"><div style="margin-bottom: 0;">{{ file.name }}</div></a></td>
+          <td style="font-size: 90%;">{{ file.size }}</td>
+          <td style="font-size: 90%;">{{ file.date |  date: "%c" }}</td>
+        </tr>       
+      {% enddirectory %}
+    </table>            
+  {% endif %}
+</section>
