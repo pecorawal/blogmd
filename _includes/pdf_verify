@@ -1,0 +1,7 @@
+{% assign this_pdf =  ':/' | append: page.path | replace: '.md', '.pdf' %}
+{% for static in site.static_files %}
+  {% capture static_file_list %}:{{static.path}}{{static_file_list}}{% endcapture %}
+{% endfor %}
+{% if static_file_list contains this_pdf %}
+  {% assign contains_pdf = true %}
+{% endif %}

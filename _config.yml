@@ -1,5 +1,5 @@
 title: Blog Series
-description: A compiled series of real (or almost real) stories from my day by life and thoughts 
+description: A compiled series of my day by day life stories and thoughts 
 remote_theme: pages-themes/tactile@v0.2.0
 
 plugins:
@@ -18,13 +18,46 @@ readme_index:
   remove_originals: true
   with_frontmatter: true
 
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: default
-
 exclude:
   - vendor/
   - Gemfile
   - Gemfile.lock
+
+defaults:
+  - scope:
+      path: "Containerfile.md"
+    values:
+      layout: filesyntax 
+      title: Blog Series
+      description: Syntax Highlighted File Contents
+      lang: dockerfile  
+  - scope:
+      path: "cicd/argo/deployment.yaml.md"
+    values:
+      layout: filesyntax  
+      title: Blog Series
+      description: Syntax Highlighted File Contents     
+      lang: yaml      
+  - scope:
+      path: "cicd/tekton/syntaxhl.md"
+    values:
+      layout: dirlisting  
+      title: Blog Series
+      description: Syntax Highlighted Directory List
+      pretty_print_files: true          
+  - scope:
+      path: "cicd/tekton/README.md"
+    values:
+      layout: dirlisting        
+      title: Blog Series
+      description: Directory List
+  - scope:
+      path: "README.md"
+    values:
+      git: https://github.com/mauricioscastro/blog        
+  - scope:
+      path: ""
+    values:
+      layout: default  
+
+    

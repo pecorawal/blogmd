@@ -1,3 +1,4 @@
+{% include pdf_verify %}
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
@@ -8,57 +9,56 @@
     {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     {% include head-custom.html %}
+    <style>
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+      code {
+        font-size: 110%;
+      }     
+    </style>    
   </head>
-  <style>
-    em {
-      word-wrap: break-word;
-    }
-    p {
-      word-wrap: break-word;
-    }    
-    .big img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-    .text_icon img {
-      margin-right: 0em;      
-      max-height: 0.8em; 
-    } 
-    blockquote {
-      padding: 0 0 0 5px;
-      margin-bottom: 20px;
-      font-size: 1.1em;
-      border-left: 10px solid #9b9b9b;
-      word-wrap: break-word;
-    }
-    ul {
-      padding-left: 1em
-    }
-    li {
-      padding-left: 1em
-    }
-    li:before {
-      content: "";
-      margin-left: -0.5rem;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      text-align: left;
-      padding: 8px;
-      word-wrap: break-word;
-      padding: 3px 5px 3px 5px;
-    }
-    tr:nth-child(even) {
-      background-color: #d7dae0;
-    }
-    code {
-      font-size: 110%;
-    }     
-  </style>
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
       <header style="padding-bottom: 15px; padding-top: 20px;">
@@ -74,9 +74,12 @@
           {% assign real_name = page.name | regex_replace: '\.md', '' %}
           <a href="{{ real_name }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ real_name }}</div></a>
           {% highlight_param {{ page.lang }} %}{% include_relative {{ real_name }} %}{% endhighlight_param %}
-        </div>
+        </div>     
       </section>
-      <footer>
+      <footer style="margin-top: 0;">
+        {% if page.git %}
+          this <a href="{{ page.git }}">blog</a> in Github
+        {% endif %}        
       </footer>
     </div>
   </body>

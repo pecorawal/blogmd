@@ -1,10 +1,4 @@
-{% assign this_pdf =  ':/' | append: page.path | replace: '.md', '.pdf' %}
-{% for static in site.static_files %}
-  {% capture static_file_list %}:{{static.path}}{{static_file_list}}{% endcapture %}
-{% endfor %}
-{% if static_file_list contains this_pdf %}
-  {% assign contains_pdf = true %}
-{% endif %}
+{% include pdf_verify %}
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: "en-US" }}">
   <head>
@@ -15,50 +9,62 @@
     {% seo %}
     <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
     {% include head-custom.html %}
+    <style>
+      em {
+        word-wrap: break-word;
+      }
+      p {
+        word-wrap: break-word;
+      }    
+      .big img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .text_icon img {
+        max-height: 0.7em; 
+      }
+      blockquote {
+        padding: 0 0 0 5px;
+        margin-bottom: 20px;
+        font-size: 1.1em;
+        border-left: 10px solid #9b9b9b;
+        word-wrap: break-word;
+      }
+      ul {
+        padding-left: 1em
+      }
+      li {
+        padding-left: 1em
+      }
+      li:before {
+        content: "";
+        margin-left: -0.5rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        word-wrap: break-word;
+        padding: 3px 5px 3px 5px;
+      }
+      tr:nth-child(even) {
+        background-color: #d7dae0;
+      }
+      code {
+        font-size: 110%;
+      }     
+    </style>
   </head>
-  <style>
-    em {
-      word-wrap: break-word;
-    }
-    p {
-      word-wrap: break-word;
-    }    
-    .big img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-    .text_icon img {
-      margin-right: 0em;      
-      max-height: 0.8em; 
-    }
-    blockquote {
-      padding: 0 0 0 5px;
-      margin-bottom: 20px;
-      font-size: 1.1em;
-      border-left: 10px solid #9b9b9b;
-      word-wrap: break-word;
-    }
-    code {
-      font-size: 110%;
-    }
-    ul {
-      padding-left: 1em
-    }
-    li {
-      padding-left: 1em
-    }
-    li:before {
-      content: "";
-      margin-left: -0.5rem;
-    }
-  </style>
   <body>
     <div style="margin-left:50px; margin-top: 0px; margin-right: 50px; margin-bottom: 0px;">
       <header style="padding-bottom: 15px; padding-top: 20px;">
         <h1 style="word-break: break-word; margin-bottom: 0; border-bottom: 0; padding-bottom: 0;"><a href="{{ "/" | absolute_url }}">{{ page.title | default: site.title }}</a>
           {% if contains_pdf %}
-            <a href="{{page.name | replace: '.md', '.pdf'}}"><img style="padding-left: 10px;" src="/img/pdf.png" alt="pdf"/></a>
+            <a href="{{ page.name | replace: '.md', '.pdf'}}"><img style="padding-left: 10px;" src="/img/pdf.png" alt="pdf"/></a>
           {% endif %}
         </h1>
         <div>{{ page.description | default: site.description }}</div>
@@ -66,7 +72,10 @@
       <section>
       {{ content }}
       </section>
-      <footer>
+      <footer style="margin-top: 0;">
+        {% if page.git %}
+          this <a href="{{ page.git }}">blog</a> in Github
+        {% endif %}
       </footer>
     </div>
   </body>
