@@ -1,4 +1,4 @@
-title: Blog Series
+title: &main_title Blog Series
 description: A compiled series of my day by day life stories and thoughts 
 remote_theme: pages-themes/tactile@v0.2.0
 
@@ -28,28 +28,28 @@ defaults:
       path: "Containerfile.md"
     values:
       layout: &file_layout filesyntax 
-      title: &file_title Blog Series
+      title: *main_title
       description: &file_desc Syntax Highlighted File Contents
       lang: dockerfile  
   - scope:
       path: "cicd/argo/deployment.yaml.md"
     values:
       layout: *file_layout  
-      title: *file_title
+      title: *main_title
       description: *file_desc   
       lang: yaml      
   - scope:
       path: "cicd/tekton/syntaxhl.md"
     values:
       layout: &dir_layout dirlisting  
-      title: *file_title
+      title: *main_title
       description: Syntax Highlighted Directory List
       pretty_print_files: true          
   - scope:
       path: "cicd/tekton/README.md"
     values:
       layout: *dir_layout        
-      title: *file_title
+      title: *main_title
       description: Directory List
   - scope:
       path: "README.md"
