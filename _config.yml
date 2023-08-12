@@ -27,29 +27,29 @@ defaults:
   - scope:
       path: "Containerfile.md"
     values:
-      layout: filesyntax 
-      title: Blog Series
-      description: Syntax Highlighted File Contents
+      layout: &file_layout filesyntax 
+      title: &file_title Blog Series
+      description: &file_desc Syntax Highlighted File Contents
       lang: dockerfile  
   - scope:
       path: "cicd/argo/deployment.yaml.md"
     values:
-      layout: filesyntax  
-      title: Blog Series
-      description: Syntax Highlighted File Contents     
+      layout: *file_layout  
+      title: *file_title
+      description: *file_desc   
       lang: yaml      
   - scope:
       path: "cicd/tekton/syntaxhl.md"
     values:
-      layout: dirlisting  
-      title: Blog Series
+      layout: &dir_layout dirlisting  
+      title: *file_title
       description: Syntax Highlighted Directory List
       pretty_print_files: true          
   - scope:
       path: "cicd/tekton/README.md"
     values:
-      layout: dirlisting        
-      title: Blog Series
+      layout: *dir_layout        
+      title: *file_title
       description: Directory List
   - scope:
       path: "README.md"
