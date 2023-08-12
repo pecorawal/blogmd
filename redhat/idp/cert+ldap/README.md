@@ -1,7 +1,3 @@
----
-title: Tech Blog Series
-description: A compiled series of real world scenario stories from the business as usual days of a IT architect
----
 # The case of the impossible additional users
 ## Abstract and Motivation
 Working in a engagemt for a [OSD non CCS in GCP](https://docs.openshift.com/dedicated/osd_planning/gcp-ccs.html) I found myself caught in a strange situation. While helping the dedicated engineer working with the cluster he posed to me the issue: "I need to create new users in the cluster, but there's no IDP yet defined by the client", meaning from [all the many possible IDPs managed Openshift](https://docs.openshift.com/container-platform/4.13/authentication/index.html) can use the only one in place was htpasswd and the one user possible was already taken, the one he was operating with. Yes, htpasswd IDP in a managed Openshift can only have one user defined. 
