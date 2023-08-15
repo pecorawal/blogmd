@@ -30,14 +30,12 @@ defaults:
       layout: &file_layout filesyntax 
       title: *main_title
       description: &file_desc Syntax Highlighted File Contents
-      lang: dockerfile  
   - scope:
       path: "cicd/argo/deployment.yaml.md"
     values:
       layout: *file_layout  
       title: *main_title
       description: *file_desc   
-      lang: yaml      
   - scope:
       path: "cicd/tekton/syntaxhl.md"
     values:
@@ -54,7 +52,7 @@ defaults:
   - scope:
       path: "README.md"
     values:
-      git: https://github.com/mauricioscastro/blog        
+      git: https://github.com/mauricioscastro/blog     
   - scope:
       path: ""
     values:

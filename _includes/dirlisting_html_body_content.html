@@ -14,16 +14,7 @@
   {% if page.pretty_print_files %}
     {% for static in site.static_files %}
       {% if static.path contains page.dir %}
-        {% case static.extname %}
-          {% when ".yaml", ".yml" %}
-            {% assign lang = "yaml" %}
-          {% when ".sh" %}
-            {% assign lang = "bash" %}
-          {% when ".js", ".json" %}
-            {% assign lang = "json" %}
-          {% else %}
-            {% assign lang = "text" %}
-        {% endcase %}
+        {% assign lang = static.extname | regex_replace: '\.', '' | regex_replace: 'Containerfile', 'dockerfile' %}
         <div style="padding-top: 10px;">
           <a href="{{ static.path }}" style="color: #6d6d6d;"><div style="margin-bottom: 0; font-size: 110%; font-weight: bold;">{{ static.name }}</div></a>
           {% highlight_param {{ lang }} %}{% include_relative {{ static.name }} %}{% endhighlight_param %}
