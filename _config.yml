@@ -1,10 +1,9 @@
 title: &main_title Blog Series
 description: A compiled series of my day by day life stories and thoughts 
-remote_theme: pages-themes/tactile@v0.2.0
+theme: jekyll-theme-tactile
 
 plugins:
   - jemoji
-  - jekyll-remote-theme
   - jekyll-relative-links
   - jekyll-readme-index
   - jekyll-redirect-from
