@@ -69,7 +69,7 @@ spec:
             script: |-
               mkdir -p $(params.pdf-dest-dir)
               cp -r $(workspaces.output.path)/* $(params.pdf-dest-dir)
-              for md in `find $(params.pdf-dest-dir) -name "*.md" | grep -v 404`; do 
+              for md in `find $(params.pdf-dest-dir) -name "*.md" -size +10c | grep -v 404`; do 
                 m2f $md pdf \
                   footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
                   headerTemplate="<span/>" margin.top="0.8cm" 

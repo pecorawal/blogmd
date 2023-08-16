@@ -52,7 +52,7 @@ spec:
             - -c
             - |-
               while true; do 
-                for md in `find $PDF_COLLECTION_BASE_PATH -name "*.md" -newermt "10 seconds ago" | grep -v 404 | grep -v $PDF_COLLECTION_BASE_PATH/bundle | grep -v $PDF_COLLECTION_BASE_PATH/site`; do 
+                for md in `find $PDF_COLLECTION_BASE_PATH -name "*.md" -newermt "10 seconds ago" -size +10c | grep -v 404 | grep -v $PDF_COLLECTION_BASE_PATH/bundle | grep -v $PDF_COLLECTION_BASE_PATH/site`; do 
                   m2f $md pdf \
                     footerTemplate="<div style=\"font-size: 9px; margin: 0 auto;\"> <span class="pageNumber"></span> / <span class="totalPages"></span></div>" \
                     headerTemplate="<span/>" margin.top="0.8cm" 
