@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: blogmd-pipelinerun-
+spec:
+  # serviceAccountName: pipeline # openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
+  pipelineRef:
+    name: new-pipeline
+  workspaces:
+    - name: git-source 
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce 
+          resources:
+            requests:
+              storage: 1Gi
+    - name: registry-credentials
+      secret:
+        secretName: telefonicadevops-devopsbot-pull-secret
+    - name: git-credentials
+      secret:
+        secretName: git-credentials        
