@@ -1,7 +1,7 @@
 FROM docker.io/jekyll/builder
 
 ENV WORKDIR="/workdir"
-ENV GIT_REPO="https://github.com/mauricioscastro/blog"
+ENV GIT_REPO="https://github.com/pecorawal/blogmd"
 ENV GIT_SSH_KEY="$WORKDIR/gitkey"
 
 ENTRYPOINT \

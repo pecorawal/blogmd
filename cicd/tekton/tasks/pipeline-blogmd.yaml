@@ -69,7 +69,7 @@ spec:
             default: $(params.pdf-dest-dir)
         steps:
           - name: md-to-pdf
-            image: quay.io/telefonicadevops/md2pdf
+            image: quay.io/mauriciosantiagodecastro/md2pdf
             script: |-
               mkdir -p $(params.pdf-dest-dir)
               cp -r $(workspaces.output.path)/* $(params.pdf-dest-dir)
