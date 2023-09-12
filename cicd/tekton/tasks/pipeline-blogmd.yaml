@@ -51,7 +51,7 @@ spec:
               chmod -R a+rwx .
               bundle config set path /tmp/bundle
               bundle install
-              bundler exec jekyll build -d /tmp/site --incremental --watch
+              bundler exec jekyll build -d /tmp/site --incremental
     #
     # test md conversion to pdf
     #                   
