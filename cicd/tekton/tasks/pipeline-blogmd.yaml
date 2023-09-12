@@ -12,8 +12,6 @@ spec:
     - name: pdf-dest-dir
       type: string
       default: /usr/local/documents/mscastro-blog         
-    - name: path
-      type: string
   tasks:
     #
     # clone repo with git-clone
