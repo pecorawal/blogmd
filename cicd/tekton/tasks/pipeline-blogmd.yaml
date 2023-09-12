@@ -2,7 +2,7 @@
 kind: Pipeline
 metadata:
   name: new-pipeline
-  namespace: blog
+  namespace: blogmd
 spec:
   workspaces:
     - name: git-source
