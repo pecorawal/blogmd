@@ -1,7 +1,8 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: blogmd-pipelinerun-
+#  generateName: blogmd-pipelinerun-
+  name: blogmd-pipelinerun
 spec:
   # serviceAccountName: pipeline # openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
   pipelineRef:
