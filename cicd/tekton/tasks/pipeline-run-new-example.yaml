@@ -4,7 +4,8 @@ metadata:
 #  generateName: blogmd-pipelinerun-
   name: blogmd-pipelinerun
 spec:
-  # serviceAccountName: pipeline # openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
+  serviceAccountName: pipeline 
+# openshift pipelines: oc adm policy add-scc-to-user privileged -z pipeline
   pipelineRef:
     name: new-pipeline
   workspaces:
