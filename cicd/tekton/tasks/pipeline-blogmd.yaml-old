@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1beta1
+﻿apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: new-pipeline
@@ -38,20 +38,18 @@ spec:
         - git-clone     
       workspaces:
         - workspace: git-source
-          name: output
+          name: source
       taskSpec:
-        workspaces:
-          - name: output
         steps:
           - name: build
             image: docker.io/jekyll/builder
             resources: {}
             script: |-
-              cd $(workspaces.output.path)
+              cd $(workspaces.source.path)
               chmod -R a+rwx .
               bundle config set path /tmp/bundle
               bundle install
-              bundler exec jekyll build -d /tmp/site
+              bundler exec jekyll build -d /tmp/site --incremental
     #
     # test md conversion to pdf
     #                   
@@ -62,8 +60,6 @@ spec:
         - workspace: git-source 
           name: output
       taskSpec:
-        workspaces:
-          - name: output
         params:
           - name: pdf-dest-dir
             default: $(params.pdf-dest-dir)
@@ -96,9 +92,6 @@ spec:
         - name: commit
           value: $(tasks.git-clone.results.commit)
       taskSpec:
-        workspaces:
-          - name: output
-          - name: dockerconfig        
         params:
           - name: image
             default: quay.io/telefonicadevops/blogrunner
@@ -134,8 +127,6 @@ spec:
         - name: cd-git-repo
           value: git@github.com:pecorawal/blogmd.git
       taskSpec:
-        workspaces:
-          - name: gitssh
         params:
           - name: version 
           - name: cd-git-repo

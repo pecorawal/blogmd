@@ -1,7 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-#  generateName: blogmd-pipelinerun-
   name: blogmd-pipelinerun
 spec:
   serviceAccountName: pipeline 
@@ -9,7 +8,7 @@ spec:
   pipelineRef:
     name: new-pipeline
   workspaces:
-    - name: git-source 
+    - name: git-source
       volumeClaimTemplate:
         spec:
           accessModes:
