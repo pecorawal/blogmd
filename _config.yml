@@ -36,14 +36,14 @@ defaults:
       title: *main_title
       description: *file_desc   
   - scope:
-      path: "cicd/tekton/syntaxhl.md"
+      path: "cicd/tekton/tasks/syntaxhl.md"
     values:
       layout: &dir_layout dirlisting  
       title: *main_title
       description: Syntax Highlighted Directory List
       pretty_print_files: true          
   - scope:
-      path: "cicd/tekton/README.md"
+      path: "cicd/tekton/tasks/README.md"
     values:
       layout: *dir_layout        
       title: *main_title
@@ -51,7 +51,7 @@ defaults:
   - scope:
       path: "README.md"
     values:
-      git: https://github.com/mauricioscastro/blog     
+      git: https://github.com/pecorawal/blogmd     
   - scope:
       path: ""
     values:
