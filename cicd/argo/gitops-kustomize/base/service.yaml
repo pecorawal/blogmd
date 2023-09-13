@@ -8,6 +8,9 @@ spec:
   ports:
     - protocol: TCP
       port: 80
+      targetPort: 4000
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
   selector:
     app: blogmd
 

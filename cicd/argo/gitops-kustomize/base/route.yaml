@@ -6,6 +6,8 @@ metadata:
   labels:
     app: blogmd
 spec:
+  host:
+    blogmd-blogmd.apps.ko6r5840.eastus.aroapp.io
   to:
     kind: Service
     name: blogmd
