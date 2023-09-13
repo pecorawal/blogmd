@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blogmd
+  namespace: blogmd
+  labels:
+    app.kubernetes.io/version: "90ed91e.20230913124559"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blogmd
+  template:
+    metadata:
+      labels:
+        app: blogmd
+    spec:
+      volumes:
+        - name: workdir
+          emptyDir: {}
+      containers:
+        - name: blogrunner
+          image: quay.io/telefonicadevops/blogrunner:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          volumeMounts:
+            - name: workdir
+              mountPath: /workdir
+          env:
+            - name: GIT_REPO
+              value: https://github.com/pecorawal/blogmd
+      imagePullSecrets:
+        - name: telefonicadevops-devopsbot-pull-secret
+        - name: md2pdf
+          image: bladerunner2020/markdown-to-file
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: workdir
+              mountPath: &pdf_collection_base_path /usr/local/documents/mscastro
+          env:
+            - name: PDF_COLLECTION_BASE_PATH
+              value: *pdf_collection_base_path
+          command:
+            - /bin/sh
+          args:
+            - -c
+            - "while true; do \n  for md in `find $PDF_COLLECTION_BASE_PATH -name \"*.md\" -newermt \"10 seconds ago\" -size +10c | grep -v 404 | grep -v $PDF_COLLECTION_BASE_PATH/bundle | grep -v $PDF_COLLECTION_BASE_PATH/site`; do \n    m2f $md pdf \\\n      footerTemplate=\"<div style=\\\"font-size: 9px; margin: 0 auto;\\\"> <span class=\"pageNumber\"></span> / <span class=\"totalPages\"></span></div>\" \\\n      headerTemplate=\"<span/>\" margin.top=\"0.8cm\" \n  done\n  sleep 10\ndone             "

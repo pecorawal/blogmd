@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blogmd-dev
+  namespace: openshift-gitops
+spec:
+  project: blogmd-dev
+  source:
+    repoURL: 'https://github.com/pecorawal/blogmd.git'
+    path: cicd/argo/gitops-kustomize/overlays/dev
+    targetRevision: dev
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
