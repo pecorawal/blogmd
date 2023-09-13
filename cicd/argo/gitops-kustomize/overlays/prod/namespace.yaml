@@ -4,4 +4,4 @@ metadata:
   name: blogmd-prod
   labels:
     argocd.argoproj.io/managed-by: openshift-gitops  
-    env: prod
+    cc: squad-a
