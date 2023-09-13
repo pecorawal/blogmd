@@ -4,7 +4,7 @@ metadata:
   name: blogmd-prod
   namespace: openshift-gitops
 spec:
-  project: blogmd-prod
+  project: blogmd
   source:
     repoURL: 'https://github.com/pecorawal/blogmd.git'
     path: cicd/argo/gitops-kustomize/overlays/prod

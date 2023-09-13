@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: blogmd-prod
+  namespace: blogmd-prod  
+  labels:
+    app: blogmd
+spec:
+  subdomain: blogmd-prod
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: blogmd
