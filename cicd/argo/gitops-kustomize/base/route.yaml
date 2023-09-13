@@ -11,4 +11,4 @@ spec:
     name: blogmd
     weight: 100
   port:
-    targetPort: 4000
+    targetPort: 8080

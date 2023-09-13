@@ -6,7 +6,7 @@ metadata:
   namespace: blogmd
 spec:
   ports:
-    - port: 4000
+    - port: 8080
   selector:
     app: blogmd
 
