@@ -31,6 +31,7 @@ spec:
           env:
             - name: GIT_REPO
               value: https://github.com/pecorawal/blogmd
+        - name:m2d2
           image: bladerunner2020/markdown-to-file
           imagePullPolicy: Always
           volumeMounts:
