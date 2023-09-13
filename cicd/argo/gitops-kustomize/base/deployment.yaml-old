@@ -1,26 +1,27 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog
-  namespace: blog
+  name: blogmd
+  namespace: blogmd
   labels:
     app.kubernetes.io/version: "90ed91e.20230913124559"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: blogmd
   template:
     metadata:
       labels:
-        app: blog
+        app: blogmd
     spec:
       volumes:
         - name: workdir
           emptyDir: {}
       containers:
         - name: blogrunner
-          image: quay.io/mauriciosantiagodecastro/blogrunner:latest
+          image: quay.io/telefonicadevops/blogrunner:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 4000
@@ -29,10 +30,8 @@ spec:
               mountPath: /workdir
           env:
             - name: GIT_REPO
-              value: https://github.com/mauricioscastro/blog
-      imagePullSecrets:
-        - name: telefonicadevops-devopsbot-pull-secret
-        - name: md2pdf
+              value: https://github.com/pecorawal/blogmd
+        - name:m2d2
           image: bladerunner2020/markdown-to-file
           imagePullPolicy: Always
           volumeMounts:
