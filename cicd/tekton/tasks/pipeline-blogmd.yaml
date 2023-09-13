@@ -111,7 +111,9 @@ spec:
             securityContext:
               privileged: true 
             script: |-
+              
               export REGISTRY_AUTH_FILE=$(workspaces.dockerconfigjson.path)/config.json
+              echo $REGISTRY_AUTH_FILE
               short=`echo $(params.commit) | cut -c 1-7`
               build_date=`date +'%Y%m%d%H%M%S'`              
               cd $(workspaces.output.path)
