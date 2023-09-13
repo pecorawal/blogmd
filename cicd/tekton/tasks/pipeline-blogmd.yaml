@@ -91,14 +91,14 @@ spec:
         - workspace: git-source 
           name: output
         - workspace: registry-credentials 
-          name: dockerconfig   
+          name: telefonicadevops-devopsbot-pull-secret 
       params:
         - name: commit
           value: $(tasks.git-clone.results.commit)
       taskSpec:
         workspaces:
           - name: output
-          - name: dockerconfig        
+          - name: telefonicadevops-devopsbot-pull-secret
         params:
           - name: image
             default: quay.io/telefonicadevops/blogrunner
