@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog
-  namespace: blog
+  name: blogmd
+  namespace: blogmd
   labels:
     app.kubernetes.io/version: "90ed91e.20230913124559"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: blogmd
   template:
     metadata:
       labels:
-        app: blog
+        app: blogmd
     spec:
       volumes:
         - name: workdir
