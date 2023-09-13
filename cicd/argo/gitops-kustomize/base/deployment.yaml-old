@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,7 +31,7 @@ spec:
           env:
             - name: GIT_REPO
               value: https://github.com/pecorawal/blogmd
-        - name: md2pdf
+        - name:m2d2
           image: bladerunner2020/markdown-to-file
           imagePullPolicy: Always
           volumeMounts:

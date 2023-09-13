@@ -6,9 +6,9 @@ metadata:
   labels:
     app: blogmd
 spec:
+  subdomain: blogmd
+  tls:
+    termination: edge
   to:
     kind: Service
     name: blogmd
-    weight: 100
-  port:
-    targetPort: 4000
