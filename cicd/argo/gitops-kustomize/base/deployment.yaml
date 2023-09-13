@@ -31,9 +31,6 @@ spec:
           env:
             - name: GIT_REPO
               value: https://github.com/pecorawal/blogmd
-      imagePullSecrets:
-        - name: telefonicadevops-devopsbot-pull-secret
-        - name: md2pdf
           image: bladerunner2020/markdown-to-file
           imagePullPolicy: Always
           volumeMounts:
