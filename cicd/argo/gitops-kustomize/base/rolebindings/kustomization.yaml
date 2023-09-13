@@ -1,0 +1,7 @@
+namespace: blogmd
+
+resources:
+- pipeline-service-role.yaml
+- pipeline-blogmd-service-rolebinding.yaml
+- pipeline-dev-service-rolebinding.yaml
+- registry-pull-rolebinding.yaml
