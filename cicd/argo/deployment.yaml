@@ -37,6 +37,8 @@ spec:
           env:
             - name: GIT_REPO
               value: https://github.com/mauricioscastro/blog
+      imagePullSecrets:
+        - name: telefonicadevops-devopsbot-pull-secret
         - name: md2pdf
           image: bladerunner2020/markdown-to-file
           imagePullPolicy: Always

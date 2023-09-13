@@ -91,14 +91,14 @@ spec:
         - workspace: git-source 
           name: output
         - workspace: registry-credentials 
-          name: telefonicadevops-devopsbot-pull-secret 
+          name: dockerconfigjson 
       params:
         - name: commit
           value: $(tasks.git-clone.results.commit)
       taskSpec:
         workspaces:
           - name: output
-          - name: telefonicadevops-devopsbot-pull-secret
+          - name: dockerconfigjson
         params:
           - name: image
             default: quay.io/telefonicadevops/blogrunner
@@ -111,7 +111,7 @@ spec:
             securityContext:
               privileged: true 
             script: |-
-              export REGISTRY_AUTH_FILE=$(workspaces.dockerconfig.path)/config.json
+              export REGISTRY_AUTH_FILE=$(workspaces.dockerconfigjson.path)/config.json
               short=`echo $(params.commit) | cut -c 1-7`
               build_date=`date +'%Y%m%d%H%M%S'`              
               cd $(workspaces.output.path)
