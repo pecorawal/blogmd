@@ -14,4 +14,4 @@ resources:
   - route.yaml
 
 images:
-- name: quay.io/telefonicaprodops/blogrunner:latest
+- name: quay.io/telefonicadevops/blogrunner:latest
