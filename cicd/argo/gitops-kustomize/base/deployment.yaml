@@ -4,7 +4,7 @@ metadata:
   name: blogmd
   namespace: blogmd
   labels:
-    app.kubernetes.io/version: "90ed91e.20230913124559"
+    app.kubernetes.io/version: "dd9f4a1.20230925140931"
 spec:
   replicas: 1
   selector:
