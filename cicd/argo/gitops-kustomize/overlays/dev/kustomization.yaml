@@ -15,5 +15,3 @@ resources:
 
 images:
 - name: quay.io/telefonicadevops/blogrunner:latest
-#  newName: image-registry.openshift-image-registry.svc:5000/blogmd/blogrunner
-#  newTag: latest
