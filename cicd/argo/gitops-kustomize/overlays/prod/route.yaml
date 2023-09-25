@@ -6,7 +6,7 @@ metadata:
   labels:
     app: blogmd
 spec:
-  subdomain: blogmd-dev
+  subdomain: blogmd-prod
   tls:
     termination: edge
   to:
