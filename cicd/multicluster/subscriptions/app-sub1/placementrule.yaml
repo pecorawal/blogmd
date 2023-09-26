@@ -1,0 +1,15 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  labels:
+      app: blogmd
+  name: blogmd-placement-0
+  namespace: blogmd-test
+spec:
+  clusterSelector:
+    matchLabels:
+      cluster: prod
+  clusterConditions:
+    - type: ManagedClusterConditionAvailable
+      status: "True"
