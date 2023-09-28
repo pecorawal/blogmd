@@ -9,7 +9,7 @@ spec:
         configMapRef: acm-placement
         labelSelector:
           matchLabels:
-            cluster.open-cluster-management.io/placement: blogmd-placement
+            cluster.open-cluster-management.io/placement: blogmd-placement-dev
         requeueAfterSeconds: 180
   template:
     metadata:
@@ -36,7 +36,7 @@ spec:
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: blogmd-placement
+  name: blogmd-placement-dev
   namespace: openshift-gitops
 spec:
   predicates:
@@ -46,4 +46,4 @@ spec:
             - key: cluster
               operator: In
               values:
-                - prod
+                - dev

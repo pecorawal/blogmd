@@ -1,0 +1,9 @@
+kind: Kustomization
+
+namespace: open-cluster-management-observability 
+
+resources:
+  - namespace.yaml
+  - azure-object-store/thanos-object-storage.yaml
+  - multiclusterobservability.yaml
+
