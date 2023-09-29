@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: blogmd-prod
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: blogmd-placement-prod
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: blogmd-{{name}}
+      labels:
+        velero.io/exclude-from-backup: "true"
+    spec:
+      project: blogmd
+      source:
+        repoURL: https://github.com/pecorawal/blogmd.git
+        targetRevision: main
+        path: cicd/argo/gitops-kustomize/overlays/prod
+      destination:
+        namespace: blogmd-prod
+        server: "{{server}}"
+      syncPolicy:
+        automated:
+          selfHeal: false
+          prune: true
+        syncOptions:
+          - CreateNamespace=true
+          - PrunePropagationPolicy=orphan
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: blogmd-placement-prod
+  namespace: openshift-gitops
+spec:
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - key: cluster
+              operator: In
+              values:
+                - prod
